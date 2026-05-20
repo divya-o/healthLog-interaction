@@ -118,6 +118,7 @@ async def update_interaction(
         db=db,
         interaction_id=str(interaction_id),
         hcp_specialty=specialty,
+        rep_id=existing.rep_id,
         **update_data,
     )
 

@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.agents.graph import agent_graph
 from app.database import get_db
 from app.models.interaction import Interaction
+from app.rate_limit import check_llm_rate_limit 
 from app.schemas.interaction import AgentResponse, ChatMessage, InteractionOut
 
 router = APIRouter()
@@ -19,6 +20,7 @@ async def chat_message(
     body: ChatMessage,
     db: AsyncSession = Depends(get_db),) -> AgentResponse:
     
+    check_llm_rate_limit(body.rep_id, "chat_message")
     # initial state for the LangGraph graph
     initial_state = {
         "messages": [HumanMessage(content=body.message)],

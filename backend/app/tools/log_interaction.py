@@ -15,7 +15,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
 from app.models.interaction import Interaction, InteractionType
-
+from app.rate_limit import check_llm_rate_limit
 
 #LLM client
 _llm = ChatGroq(

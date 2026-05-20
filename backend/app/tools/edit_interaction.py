@@ -7,13 +7,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.interaction import Interaction, InteractionStatus, InteractionType
 from app.tools.log_interaction import _enrich_with_llm  # reuse LLM helper
-
+from app.rate_limit import check_llm_rate_limit 
 
 async def edit_interaction(
     db: AsyncSession,
     interaction_id: str,
     hcp_specialty: str,
-    
+    rep_id: str,
     interaction_type: str | None = None,
     occurred_at: str | None = None,
     location: str | None = None,
@@ -56,6 +56,7 @@ async def edit_interaction(
 
     #re-enrich if notes changed
     if notes_changed and interaction.raw_notes:
+        check_llm_rate_limit(rep_id, "edit_interaction")
         try:
             enriched = await _enrich_with_llm(
                 interaction.raw_notes,
