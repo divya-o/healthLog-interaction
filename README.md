@@ -1,6 +1,7 @@
 # HCP CRM - Healthcare Professional Interaction Logging Module
 
 ### launch
+
 ### Backend
 ```bash
 cd backend
@@ -28,7 +29,7 @@ alembic upgrade head
 
 ---
 
-## LangGraph Agent — Role & Responsibilities
+## LangGraph Agent 
 
 The LangGraph agent acts as an **intelligent orchestrator** for HCP interaction management. Instead of rigid API endpoints, it reasons over the sales rep's intent , selects the right tool, calls it, and returns a structured result.
 
@@ -56,10 +57,7 @@ hcp-crm/
 ├── backend/
 │   ├── requirements.txt
 │   ├── .env.example
-│   ├── alembic.ini
-│   ├── migrations/
-│   │   └── 001_initial_schema.sql
-│   └── app/
+│   |── app/
 │       ├── main.py              # FastAPI app entry point
         |__rate_limit.py
 │       ├── config.py            # Settings via pydantic-settings
